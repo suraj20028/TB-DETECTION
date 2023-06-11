@@ -1,1 +1,1 @@
-# TB-DETECTION
+# Tuberculosis-Detection
