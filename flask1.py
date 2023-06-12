@@ -14,7 +14,7 @@ from firebase_admin import db
 import json
 from flask import Flask
 from datetime import date
-
+listPercentages = []
 app = Flask(__name__)
 cred = credentials.Certificate(
     'tbtracking-73f85-firebase-adminsdk-xtgbp-73cb2335b1.json')
@@ -24,15 +24,10 @@ firebase_admin.initialize_app(cred, {
 })
 
 ref = db.reference('py/users/-NXkCKsw5TdMmfRp2Qu6/user')
-users_ref = ref.child('users')
+users_ref = ref.child('user')
 data = ref.get()
-listPercentages = data["percentages"]
-print(data["percentages"])
-# new_value = 6
-if "percentages" in data:
-    data["percentages"].append("new_value")
-else:
-    data["percentages"] = [new_value]
+
+
 
 # Update the data in the database
 ref.set(data)
@@ -78,7 +73,7 @@ def upload():
     pp_img = img_to_array(img)
     pp_img = pp_img / 255
     pp_img = np.expand_dims(pp_img, axis=0)
-
+    
     # predict
     preds = cnn.predict(pp_img)
     if preds >= 0.5:
@@ -90,26 +85,39 @@ def upload():
         type = "Normal"
         out = ('I am {:.2%} percent confirmed that this is a Normal case'.format(
             1 - preds[0][0]))
-
+    if preds>=0.5:
+        current_percentage = (preds[0][0])*100
+    else:
+        current_percentage = (1-preds[0][0])*100
     response = jsonify({
         'result': out
     })
     current_date = date.today()
     currdate_str = json.dumps({'created_at': current_date}, default=str)
+    
+    listPercentages.append(current_percentage)
     users_ref.push().set({
         'user': {
             'type': type,
-            'percentage': (1-preds[0][0])*100,
-            'current_date': currdate_str
-
+            'percentage': current_percentage ,
+            'current_date': currdate_str,
+            'listOfPercentages':listPercentages
         }
     })
+    # new_value = 6
+    # if "percentages" in data:
+    #     data["percentages"].append(new_value)
+    # else:
+    #     data["percentages"] = [new_value]
+    # print(data["percentages"])
+    # listPercentages = data["percentages"]
+    #listPercentages = [6,5,4,3,2,1]
 
     # response.headers.add('Access-Control-Allow-Origin', '*')
     if preds >= 0.5:
-        return render_template('index.html', out=out, img=image_file.filename, type="Tb", percentage=(1 - preds[0][0])*100)
+        return render_template('index.html', out=out, img=image_file.filename, type="Tb", percentage=(1 - preds[0][0])*100, listPercentages=listPercentages)
     else:
-        return render_template('index.html', out=out, img=image_file.filename, type='Normal', percentage=(1 - preds[0][0])*100)
+        return render_template('index.html', out=out, img=image_file.filename, type='Normal', percentage=(1 - preds[0][0])*100, listPercentages=listPercentages)
 
     # st.success(out)
 
