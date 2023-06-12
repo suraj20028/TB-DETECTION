@@ -1,3 +1,41 @@
+
+import { initializeApp } from "firebase/app";
+import { getAnalytics } from "firebase/analytics";
+import { initializeApp } from "firebase/app";
+import { getDatabase, ref, child, get } from "firebase/database";
+
+
+const database = getDatabase(app)
+
+
+const firebaseConfig = {
+  apiKey: "AIzaSyBwdVMIfe4CLxrE5fiwxcgsK53O56EysXs",
+  authDomain: "tbtracking-73f85.firebaseapp.com",
+  databaseURL: "https://tbtracking-73f85-default-rtdb.firebaseio.com",
+  projectId: "tbtracking-73f85",
+  storageBucket: "tbtracking-73f85.appspot.com",
+  messagingSenderId: "731816628353",
+  appId: "1:731816628353:web:a604d2b6c0ac6a93dbbd80",
+  measurementId: "G-NJD5BJ5F79"
+};
+
+const app = initializeApp(firebaseConfig);
+
+
+const dbRef = ref(getDatabase());
+get(child(dbRef, `py/users/-NXk3RRInHNgyFjBmlWc/user/${percs}`)).then((snapshot) => {
+  if (snapshot.exists()) {
+    console.log(snapshot.val());
+  } else {
+    console.log("No data available");
+  }
+}).catch((error) => {
+  console.error(error);
+});
+
+
+
+
 (function($) {
   'use strict';
   $(function() {
@@ -95,10 +133,10 @@
       var SalesChart = new Chart(SalesChartCanvas, {
         type: 'bar',
         data: {
-          labels: ["Jan", "Feb", "Mar", "Apr", "May"],
+          labels: ["Jan", "Feb", "Mar", "Apr", "May", "June"],
           datasets: [{
               label: 'Percentage of TB',
-              data: [80, 70, 60, 50, 55],
+              data: [80, 70, 60, 50, 55, 40],
               backgroundColor: '#8EB0FF'
             }//,
             // {

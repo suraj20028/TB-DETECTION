@@ -11,9 +11,12 @@ from keras.utils import img_to_array
 import firebase_admin
 from firebase_admin import credentials
 from firebase_admin import db
+import json
+from flask import Flask
+from datetime import date
+
 app = Flask(__name__)
-cred = credentials.Certificate(
-    'tbtracking-73f85-firebase-adminsdk-xtgbp-73cb2335b1.json')
+cred = credentials.Certificate('tbtracking-73f85-firebase-adminsdk-xtgbp-73cb2335b1.json')
 
 firebase_admin.initialize_app(cred, {
     'databaseURL': 'https://tbtracking-73f85-default-rtdb.firebaseio.com'
@@ -78,11 +81,14 @@ def upload():
     response = jsonify({
         'result': out
     })
-
+    current_date = date.today()
+    currdate_str = json.dumps({'created_at': current_date}, default=str)
     users_ref.push().set({
         'user': {
             'type': type,
-            'percentage': (1-preds[0][0])*100
+            'percentage': (1-preds[0][0])*100,
+            'current_date': currdate_str   
+
         }
     })
 
