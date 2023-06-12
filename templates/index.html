@@ -269,26 +269,29 @@
         </div>
         <div class="row">
           <div class="col-md-6 grid-margin stretch-card">
-            <div class="card" style="align-items:center">
-              <button id="retakeTestButton" style="margin-top:40px">RETAKE TEST</button>
-              <div class="card-body">
+            <!-- <div class="card" style="align-items:center"> -->
+              <!-- <button id="retakeTestButton" style="margin-top:70px">RETAKE TEST</button> -->
+              <!-- <a href="http://127.0.0.1:5000/home"><button id="retakeTestButton" style="margin-top:40px">RETAKE TEST</button></a> -->
+              <!-- <div class="card-body"> -->
                 <!-- <p class="card-title text-md-center text-xl-left" style="color: black;">RETAKE TEST</p> -->
                 <!-- <div class="d-flex flex-wrap justify-content-between justify-content-md-center justify-content-xl-between align-items-center">
                     <h3 class="mb-0 mb-md-2 mb-xl-0 order-md-1 order-xl-0">34040</h3>
                     <i class="ti-calendar icon-md text-muted mb-0 mb-md-3 mb-xl-0"></i>
                   </div>   -->
                 <!-- <p class="mb-0 mt-2 text-danger">0.12% <span class="text-black ms-1"><small>(30 days)</small></span></p> -->
-              </div>
-            </div>
+              <!-- </div> -->
+            <!-- </div> -->
           </div>
-          <div class="col-md-6 grid-margin stretch-card">
+          <div class="col-md-12 grid-margin stretch-card">
             <div class="card" style="align-items:center">
               <div class="card-body">
                 <p class="card-title text-md-center text-xl-left" style="color: black;">CURRENT PERCENTAGE</p>
                 <div
-                  class="d-flex flex-wrap justify-content-between justify-content-md-center justify-content-xl-between align-items-center">
-                  <h3 class="mb-0 mb-md-2 mb-xl-0 order-md-1 order-xl-0">83%</h3>
-                  <i class="ti-user icon-md text-muted mb-0 mb-md-3 mb-xl-0"></i>
+                  class="d-flex flex-wrap justify-content-between justify-content-md-center justify-content-xl-between align-items-center" style="align-items: center;justify-content: center;">
+                  <h4 class="mb-0 mb-md-2 mb-xl-0 order-md-1 order-xl-0" style="font-size: large;">{{out}}</h4>
+                  <!-- <i class="ti-user icon-md text-muted mb-0 mb-md-3 mb-xl-0"></i> -->
+                  <img src="{{url_for('static', filename='images/'+img) }}" alt="" style="height: 100px; width: 100px; margin: 10px;">
+                  <a href="http://127.0.0.1:5000/home"><button id="retakeTestButton" style="">RETAKE TEST</button></a>
                 </div>
                 <!-- <p class="mb-0 mt-2 text-danger">0.47% <span class="text-black ms-1"><small>(30 days)</small></span></p> -->
               </div>

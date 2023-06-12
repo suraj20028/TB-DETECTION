@@ -1,3 +1,4 @@
+from PIL import Image
 import image as image
 import numpy as np
 import tensorflow
@@ -50,7 +51,7 @@ def upload():
     # image_file = request.files["image"]
 
     # Save the file to the server
-    path = os.path.join("uploads", image_file.filename)
+    path = os.path.join("./static/images", image_file.filename)
     image_file.save(os.path.join("./static/images", image_file.filename))
 
     # -------------------------------------------------------------------#
