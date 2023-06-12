@@ -16,14 +16,26 @@ from flask import Flask
 from datetime import date
 
 app = Flask(__name__)
-cred = credentials.Certificate('tbtracking-73f85-firebase-adminsdk-xtgbp-73cb2335b1.json')
+cred = credentials.Certificate(
+    'tbtracking-73f85-firebase-adminsdk-xtgbp-73cb2335b1.json')
 
 firebase_admin.initialize_app(cred, {
     'databaseURL': 'https://tbtracking-73f85-default-rtdb.firebaseio.com'
 })
 
-ref = db.reference('py/')
+ref = db.reference('py/users/-NXkCKsw5TdMmfRp2Qu6/user')
 users_ref = ref.child('users')
+data = ref.get()
+listPercentages = data["percentages"]
+print(data["percentages"])
+# new_value = 6
+if "percentages" in data:
+    data["percentages"].append("new_value")
+else:
+    data["percentages"] = [new_value]
+
+# Update the data in the database
+ref.set(data)
 
 
 @app.route("/")
@@ -40,6 +52,7 @@ def loading_model():
     fp = "model.h5"
     model_loader = load_model(fp)
     return model_loader
+
 
 cnn = loading_model()
 
@@ -87,7 +100,7 @@ def upload():
         'user': {
             'type': type,
             'percentage': (1-preds[0][0])*100,
-            'current_date': currdate_str   
+            'current_date': currdate_str
 
         }
     })
