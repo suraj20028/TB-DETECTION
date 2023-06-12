@@ -37,7 +37,6 @@ def loading_model():
     model_loader = load_model(fp)
     return model_loader
 
-
 cnn = loading_model()
 
 
@@ -45,7 +44,7 @@ cnn = loading_model()
 def upload():
     path_up = os.getcwd()
     image_file = request.files["image"]
-    # image_file=request.form["image"]
+    # image_file=request.form["image"
     print(os.path.join(path_up, image_file.filename))
     # Get the uploaded file from the request object
     # image_file = request.files["image"]
