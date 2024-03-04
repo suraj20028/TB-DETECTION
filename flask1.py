@@ -88,7 +88,7 @@ def upload():
     if preds>=0.5:
         current_percentage = (preds[0][0])*100
     else:
-        current_percentage = (1-preds[0][0])*100
+        current_percentage = (preds[0][0])*100
     response = jsonify({
         'result': out
     })
@@ -128,4 +128,5 @@ def upload():
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+   # app.run(debug=True)
+   app.run(host='0.0.0.0',port=8080)
